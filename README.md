@@ -219,6 +219,10 @@ Object getAllByIndexName(String indexName, [*Array properties])
 
 ####.inflate
 
+```
+Void inflate(StaticData parentStaticData, String parentKey, String childKey)
+```
+
 Combines 2 staticdata objects on `parentKey` and `childKey`.
 
 `parentKey` is the column from source staticdata and `childKey` is the column from the staticdata given to the function.
