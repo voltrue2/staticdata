@@ -2,6 +2,10 @@
 
 A module to convert CSV file data into JSON object and provides structured methods to access the converted data.
 
+## How to install
+
+`npm install`
+
 ## How to include it in my project
 
 #### To add this package as a dependency of your application, add the following to your `package.json`:
@@ -36,11 +40,11 @@ With the configuration object passed to `.setup()`, you can modify the behavior 
 ```javascript
 {
 	path: '/path/to/your/data/directory/',
-	'delimiter': '<optional>', // supported delimiters are: , ^ | ; \t
-	'index': {
+	delimiter: '<optional>', // supported delimiters are: , ^ | ; \t
+	index: {
 		// optional object to index converted data. for .getOneByIndex. .getManByIndex, and .getAllByIndexName
 	},
-	'mapOpenFile': <optional>, // an integer to indicate how many files are allowed to stay open while converting the data. Default is 100.
+	mapOpenFile: <optional>, // an integer to indicate how many files are allowed to stay open while converting the data. Default is 100.
 }
 ```
 
