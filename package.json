@@ -20,7 +20,9 @@
 		"static",
 		"file",
 		"JSON",
-		"CSV"
+		"CSV",
+		"parse",
+		"convert"
 	],
 	"license": "MIT"
 }

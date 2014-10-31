@@ -14,7 +14,7 @@ name="gracenode-staticdata";
 cwd=`pwd`;
 # list directories/files to lint
 list=();
-defaultDirList="index.js csv.js parser.js";
+defaultDirList="index.js lib/csv.js lib/parser.js lib/helpers.js";
 # optional space separated list of directories/files to lint
 # Example: ./lint.sh "mydir/ myFile" > this will lint all files in mydir/ and lint myFile
 dirList=$1;
