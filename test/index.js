@@ -139,4 +139,27 @@ describe('staticdata module unit test', function () {
 
 	});
 
+	it('Can convert a CSV string data to an object', function (done) {
+		
+		var fs = require('fs');
+		fs.readFile('./test/data/map.csv', 'utf8', function (error, data) {
+			assert.equal(error, undefined);
+			var obj = staticdata.csvToObj(data);
+			assert.equal(obj[0].name, 'US');
+			assert.equal(obj[0].value, 'United States of America,US,USA');
+			assert.equal(obj[0].id, 1);
+			assert.equal(obj[0].code, 100);
+			assert.equal(obj[0].key, true);
+			assert.equal(obj[0].desc, 'lalala');
+			assert.equal(obj[3].name, 'CN');
+			assert.equal(obj[3].value, '中國');
+			assert.equal(obj[3].id, 4);
+			assert.equal(obj[3].code, 400);
+			assert.equal(obj[3].key, false);
+			assert.equal(obj[3].desc, 5454544);
+			done();
+		});
+
+	});
+
 });

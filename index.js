@@ -80,6 +80,10 @@ exports.csvToObj = function (csvData) {
 	return toObject('', csvData);
 };
 
+exports.arrayToCsv = function (list) {
+	return toCSv(list);
+};
+
 function readFile(path, cb) {
 	var lastDot = path.lastIndexOf('.');
 	var type = path.substring(lastDot + 1);
@@ -126,8 +130,12 @@ function readFile(path, cb) {
 
 function toObject(file, data) {
 	var parsed = csv.parse(file, data);
-	var obj = parser.execute(parsed.file, parsed.data);
+	var obj = parser.toObject(parsed.file, parsed.data);
 	return obj;
+}
+
+function toCsv(list) {
+
 }
 
 function mapIndex(data, indexNames) {
