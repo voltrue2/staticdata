@@ -162,4 +162,20 @@ describe('staticdata module unit test', function () {
 
 	});
 
+	it('Can convert a multi-demensional array to a CSV string', function () {
+		var test = [
+			{ id: 1, name: 'foo', value: 100 },
+			{ id: 2, name: 'boo', value: 200 },
+			{ id: 3, name: 'hello world', standard: true },
+			{ id: 4, name: 'no more', standard: false, value: 0 }
+		];
+		var csv = staticdata.arrayToCsv(test);
+		var result = 'id,name,value,standard\n';
+		result += '1,"foo",100,\n';
+		result += '2,"boo",200,\n';
+		result += '3,"hello world",,true\n';
+		result += '4,"no more",0,false';
+		assert.equal(csv, result);
+	});
+
 });

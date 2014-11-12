@@ -1,7 +1,7 @@
 {
 	"name": "staticdata",
 	"description": "module to convert CSV file data to JSON objects and provide structured way to access the data.",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"author": "Nobuyori Takahashi <voltrue2@yahoo.com>",
 	"repository": {
 		"type": "git",

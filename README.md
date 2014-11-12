@@ -114,6 +114,36 @@ Parses CSV data into an object.
 Object csvToObj(String csvData);
 ```
 
+####.arrayToCsv
+
+Parses an array with objects into a CSV string.
+
+```
+String arrayToCsv(array arrayData)
+```
+
+Example:
+
+```javascript
+var staticdata = require('staticdata');
+var test = [
+	{ id: 1, name: 'foo', value: 100 },
+	{ id: 2, name: 'boo', value: 200 },
+	{ id: 3, name: 'hello world', standard: true },
+	{ id: 4, name: 'no more', standard: false, value: 0 }
+];
+var csv = staticdata.arrayToCsv(test);
+/*
+the result string:
+
+id,name,value,standard
+1,"foo",100,
+2,"boo",200,
+3,"hello world",,true
+4,"no more",0,false
+*/
+```
+
 ***
 
 ## StaticData Class

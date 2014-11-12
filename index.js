@@ -81,7 +81,7 @@ exports.csvToObj = function (csvData) {
 };
 
 exports.arrayToCsv = function (list) {
-	return toCSv(list);
+	return toCsv(list);
 };
 
 function readFile(path, cb) {
@@ -135,7 +135,41 @@ function toObject(file, data) {
 }
 
 function toCsv(list) {
-
+	var columns = [];
+	// create columns
+	for (var i = 0, len = list.length; i < len; i++) {
+		var item = list[i];
+		if (typeof item === 'object') {
+			for (var key in item) {
+				if (columns.indexOf(key) === -1) {
+					columns.push(key);
+				}
+			}
+		}
+	}
+	// create a CSV array
+	var csv = [];
+	var clen = columns.length;
+	// inject columns first
+	csv.push(columns.join(delimiter));
+	// now inject the values
+	for (var j = 0, jen = list.length; j < jen; j++) {
+		var row = list[j];
+		var values = [];
+		for (var c = 0; c < clen; c++) {
+			if (row[columns[c]] === undefined) {
+				values.push(''); 
+			} else {
+				var value = row[columns[c]];
+				if (typeof value === 'string') {
+					value = quote + value + quote;
+				}
+				values.push(value);
+			}
+		}
+		csv.push(values.join(delimiter));
+	}
+	return csv.join('\n');
 }
 
 function mapIndex(data, indexNames) {
