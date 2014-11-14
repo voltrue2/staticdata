@@ -28,6 +28,9 @@ describe('staticdata module unit test', function () {
 					],
 					'tab.csv': [
 						'id'
+					],
+					'animal-friends.csv': [
+						'key'
 					]
 				}
 		};
@@ -176,6 +179,16 @@ describe('staticdata module unit test', function () {
 		result += '3,"hello world",,true\n';
 		result += '4,"no more",0,false';
 		assert.equal(csv, result);
+	});
+
+	it('Can inflate w/ data that matches multiple rows', function () {
+		var a = staticdata.create('animals');
+		var af = staticdata.create('animal-friends');
+		var success = a.inflate(af, 'friends', 'key');
+		var first = a.getAll()[0];
+		assert(first);
+		assert.equal(first.friends[0].key, 'x1');
+		assert.equal(first.friends[1].key, 'x1');
 	});
 
 });
