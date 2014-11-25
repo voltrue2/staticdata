@@ -1,4 +1,5 @@
 var assert = require('assert');
+var fs = require('fs');
 var staticdata = require('../');
 var names = [
 	'US',
@@ -13,6 +14,7 @@ describe('staticdata module unit test', function () {
 	
 		var config = {
 				path: 'test/data/',
+				autoUpdate: true,
 				index: {
 					'map.csv': [
 						'name'
@@ -189,6 +191,28 @@ describe('staticdata module unit test', function () {
 		assert(first);
 		assert.equal(first.friends[0].key, 'x1');
 		assert.equal(first.friends[1].key, 'x1');
+	});
+
+	it('Can auto-update on file change', function (done) {
+		var before = staticdata.create('auto').getAll();
+		assert.equal(before[0].id, 0);		
+		assert.equal(before[0].value, 'zero');
+		fs.writeFile('./test/data/auto.csv', 'id,value\n0,\"zero\"\n1,\"one\"', function (error) {
+			assert.equal(error, undefined);
+			setTimeout(function () {
+				var after = staticdata.create('auto').getAll();
+				assert.equal(after[0].id, 0);		
+				assert.equal(after[0].value, 'zero');
+				assert.equal(after[1].id, 1);		
+				assert.equal(after[1].value, 'one');
+				fs.writeFile('./test/data/auto.csv', 'id,value\n0,\"zero\"', function (error) {
+					assert.equal(error, undefined);
+					setTimeout(function () {
+						done();
+					}, 100);
+				});
+			}, 100);
+		});
 	});
 
 });

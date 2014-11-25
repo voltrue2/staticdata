@@ -41,6 +41,7 @@ With the configuration object passed to `.setup()`, you can modify the behavior 
 {
 	path: '/path/to/your/data/directory/',
 	delimiter: '<optional>', // supported delimiters are: , ^ | ; \t
+	autoUpdate: <optional> // true/false
 	index: {
 		// optional object to index converted data. for .getOneByIndex. .getManByIndex, and .getAllByIndexName
 	},
@@ -143,6 +144,14 @@ id,name,value,standard
 4,"no more",0,false
 */
 ```
+
+***
+
+## Auto-Update
+
+If `autoUpdate` is set to `true` in the configurations object, `staticdata` module automatically updates internally cached staticdata on any existing file change.
+
+The default is `false`.
 
 ***
 

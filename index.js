@@ -5,6 +5,7 @@
  *	"path": "directory path to the source static files",
  *	"delimiter": optional,
  *	"qoute": optional,
+ *	"autoUpdate": optional
  *	"index": optional {
  *		"staticFileName": ["indexName"...] > this must be a cloumn name in the file
  *	}
@@ -25,7 +26,7 @@ var config;
 var delimiter = ',';
 var quote = '"';
 var staticData = {}; // static data source object
-var sdMap = {}; // static data object map
+var sdMap = {};
 
 exports.setup = function (configIn, cb) {
 	if (!configIn || !configIn.path) {
@@ -50,6 +51,7 @@ exports.setup = function (configIn, cb) {
 			return cb(error);
 		}
 		async.eachLimit(list, maxOpenFiles, function (item, nextCallback) {
+			setupAutoUpdate(item.file);
 			readFile(item.file, nextCallback);
 		}, cb);
 	});
@@ -61,17 +63,15 @@ exports.setup = function (configIn, cb) {
 * example: staticdata/example/test.csv = example/test
 */
 exports.create = function (dataName) {
-	
-	// check for existing static data object first
+	// look for existing statidata object first
 	if (sdMap[dataName]) {
 		return sdMap[dataName];
-	}	
-
+	}
 	// create a new static data object
 	if (staticData[dataName]) {
 		var sd = new StaticData(dataName, staticData[dataName]);
 		sdMap[dataName] = sd;
-		return sd;
+		return sdMap[dataName];
 	}
 	return null;
 };
@@ -123,9 +123,24 @@ function readFile(path, cb) {
 		
 		// add it to cache
 		staticData[name] = { data: data, indexMap: indexMap, path: path };
-		
+		// update existing staticdata object
+		if (sdMap[name]) {
+			sdMap[name].update(staticData[name]);
+		}
+		// we are done
 		cb();
 	});
+}
+
+function setupAutoUpdate(path) {
+	// if config.autoUpdate is true
+	if (config.autoUpdate) {
+		fs.watch(path, function (event) {
+			if (event === 'change') {
+				readFile(path, function () {});	
+			}
+		});
+	}
 }
 
 function toObject(file, data) {
