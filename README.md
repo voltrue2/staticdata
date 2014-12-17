@@ -45,9 +45,62 @@ With the configuration object passed to `.setup()`, you can modify the behavior 
 	index: {
 		// optional object to index converted data. for .getOneByIndex. .getManByIndex, and .getAllByIndexName
 	},
-	mapOpenFile: <optional>, // an integer to indicate how many files are allowed to stay open while converting the data. Default is 100.
+	maxOpenFile: <optional>, // an integer to indicate how many files are allowed to stay open while converting the data. Default is 100.
 }
 ```
+
+#### path [string]
+
+A path to a directory that contains all static data files (.json or .csv).
+
+#### delimiter [string]
+
+A string representation of delimiter used to parse CSV files.
+
+The default is `,`.
+
+#### autoUpdate [boolean]
+
+If set `true`, `staticdata` module will automatically update any file changes.
+
+The default is `false`.
+
+#### index [object]
+
+Defines indexes to apply per static data file.
+
+In order to use `staticdata.getOneByIndex`, `staticdata.getManyByIndex`, `staticdata.getAllByIndexName`, and `staticdata.inflate`,
+ you must apply index(es).
+
+Example:
+
+```javascript
+var staticdata = require('staticdata');
+var config = {
+	path: '/my/staticdata/files/',
+	index: {
+		'animals.csv': [
+			'id',
+			'name'
+		]
+	}
+};
+// we are applying indexes to a column `id` and `name`
+staticdata.setup(config, function (error) {
+	if (error) {
+		// error hmmm...
+	}
+	var animals = staticdata.create('animals');
+	var dog = animals.getOneByIndex('id', '001');
+	var cat = animals.getOneByIndex('name', 'Hello Kitty');
+});
+```
+
+#### maxOpenFile [number]
+
+Defines the maximum number of staticdata files to be opened while setting up.
+
+The default is `100`.
 
 ## CSV
 
