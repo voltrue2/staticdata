@@ -149,7 +149,12 @@ Example:
 in order to create a static data object from a static data file called "example.csv", do the following:
 */
 var staticdata = require('staticdata');
-example = staticdata.create('example');
+staticdata.setup(config, function (error) {
+	if (error) {
+		// hmmm
+	}
+	var example = staticdata.create('example');
+});
 ```
 
 Example With Subdirectory:
@@ -157,7 +162,12 @@ Example With Subdirectory:
 ```javascript
 // to create a static data object from a static data file that is located in /test/another/myfile.csv, do the following:
 var staitcdata = require('staticdata');
-var myfile = staticdata.create('test/another/myfile');
+staticdata.setup(config, function (error) {
+	if (error) {
+		// hmmm
+	}
+	var myfile = staticdata.create('test/another/myfile');
+});
 ```
 
 ####.csvToObj
@@ -186,16 +196,21 @@ var test = [
 	{ id: 3, name: 'hello world', standard: true },
 	{ id: 4, name: 'no more', standard: false, value: 0 }
 ];
-var csv = staticdata.arrayToCsv(test);
-/*
-the result string:
+staticdata.setup(config, function (error) {
+	if (error) {
+		// hmmm
+	}
+	var csv = staticdata.arrayToCsv(test);
+	/*
+	the result string:
 
-id,name,value,standard
-1,"foo",100,
-2,"boo",200,
-3,"hello world",,true
-4,"no more",0,false
-*/
+	id,name,value,standard
+	1,"foo",100,
+	2,"boo",200,
+	3,"hello world",,true
+	4,"no more",0,false
+	*/
+});
 ```
 
 ***
