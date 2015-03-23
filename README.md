@@ -132,7 +132,7 @@ id,name,age
 
 ## API
 
-####.create
+#### .create
 
 Returns an instance of StaticData class.
 
@@ -170,7 +170,7 @@ staticdata.setup(config, function (error) {
 });
 ```
 
-####.csvToObj
+#### .csvToObj
 
 Parses CSV data into an object.
 
@@ -178,7 +178,7 @@ Parses CSV data into an object.
 Object csvToObj(String csvData);
 ```
 
-####.arrayToCsv
+#### .arrayToCsv
 
 Parses an array with objects into a CSV string.
 
@@ -211,6 +211,19 @@ staticdata.setup(config, function (error) {
 	4,"no more",0,false
 	*/
 });
+```
+
+#### .getBOM
+
+Returns BOM string. Useful when creating a CSV file data for microsoft Excel etc...
+
+Example:
+
+```javascript
+var csvData = staticdata.arrayToCsv(arrayData);
+var BOM = staticdata.getBOM();
+// send the csv data with BOM to the client as a CSV file
+response.send(BOM + csvData);
 ```
 
 ***

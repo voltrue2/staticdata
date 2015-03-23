@@ -84,6 +84,11 @@ exports.arrayToCsv = function (list) {
 	return toCsv(list);
 };
 
+exports.getBOM = function () {
+	// this is mostly for MS excel...
+	return new Buffer('EFBBBF', 'hex');
+};
+
 function readFile(path, cb) {
 	var lastDot = path.lastIndexOf('.');
 	var type = path.substring(lastDot + 1);
